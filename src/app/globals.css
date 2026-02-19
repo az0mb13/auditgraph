@@ -1,26 +1,134 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+
+  /* AuditGraph Custom Colors */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #2563eb;
+  --radius: 0.5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #09090b;
+  /* Deep Zinc Black */
+  --foreground: #fafafa;
+
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+  --primary: #3b82f6;
+  /* Blue 500 */
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  /* Zinc 800 */
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fafafa;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #1d4ed8;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
+  overflow: hidden;
+  /* For infinite canvas */
+}
+
+/* React Flow Customization */
+.react-flow__node {
+  @apply rounded-xl border border-border bg-card text-card-foreground shadow-sm;
+}
+
+/* Make edges clickable with pointer cursor and fat invisible hitbox */
+.react-flow__edge {
+  cursor: pointer;
+}
+
+/* Group nodes must NOT block clicks on edges underneath */
+.react-flow__node-group {
+  pointer-events: none !important;
+}
+
+/* CRITICAL: EdgeLabelRenderer and its parent wrapper have pointer-events: none
+   by default in React Flow. Our custom ClickableEdge hitbox divs live inside
+   this renderer and MUST receive mouse events. Also needs high z-index to
+   sit above group nodes in the stacking context. */
+.react-flow__edgelabel-renderer {
+  pointer-events: auto !important;
+  z-index: 5 !important;
+}
+
+/* React Flow wraps the edge label renderer in a div that also blocks events */
+.react-flow__renderer>div:last-child {
+  pointer-events: auto !important;
+}
+
+.react-flow__edge-interaction {
+  stroke-width: 25px !important;
+  stroke: transparent !important;
+  fill: none !important;
+  pointer-events: stroke !important;
+  cursor: pointer !important;
+}
+
+.react-flow__edge-path {
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: #22d3ee !important;
+  stroke-width: 2.5px;
+  filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.4));
 }
