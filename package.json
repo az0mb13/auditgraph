@@ -27,6 +27,7 @@
     "react-dom": "19.2.3",
     "react-syntax-highlighter": "^16.1.0",
     "reactflow": "^11.11.4",
+    "surya": "^0.4.13",
     "tailwind-merge": "^3.4.1",
     "zundo": "^2.3.0",
     "zustand": "^5.0.11"
