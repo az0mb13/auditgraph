@@ -69,8 +69,9 @@ export async function POST(req: NextRequest) {
         }
 
         // Run Surya Graph
-        // npx surya graph <files>
-        const command = `npx surya graph ${filePaths.map(p => `"${p}"`).join(' ')}`;
+        // Use local binary to avoid npx cache write issues in serverless
+        const suryaPath = path.join(process.cwd(), 'node_modules', '.bin', 'surya');
+        const command = `${suryaPath} graph ${filePaths.map(p => `"${p}"`).join(' ')}`;
 
         const { stdout, stderr } = await execAsync(command);
 
