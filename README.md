@@ -18,6 +18,10 @@ AuditGraph is a developer tool designed to help smart contract auditors and deve
 
 ![Code View](public/screenshots/code_view.png)
 
+![Side by Side](public/screenshots/side_by_side.png)
+
+![Function Search](public/screenshots/function_search.png)
+
 ## Getting Started
 
 ### Prerequisites
