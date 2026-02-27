@@ -33,7 +33,7 @@ AuditGraph is a developer tool designed to help smart contract auditors and deve
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/auditgraph.git
+    git clone https://github.com/az0mb13/auditgraph.git
     cd auditgraph
     ```
 
