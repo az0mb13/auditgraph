@@ -72,7 +72,10 @@ export async function POST(req: NextRequest) {
         // Run Surya Graph
         // Resolve path to surya's executable script directly, bypassing .bin symlinks
         // Vercel might not preserve .bin or permissions correctly
-        const suryaPackagePath = require.resolve('surya/package.json');
+        let suryaPackagePath = require.resolve('surya/package.json');
+        if (suryaPackagePath.startsWith('[project]')) {
+            suryaPackagePath = path.join(process.cwd(), suryaPackagePath.replace('[project]', ''));
+        }
         const suryaPath = path.join(path.dirname(suryaPackagePath), 'bin', 'surya');
         const command = `node "${suryaPath}" graph ${filePaths.map(p => `"${p}"`).join(' ')}`;
 
